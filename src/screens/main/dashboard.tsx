@@ -42,9 +42,9 @@ const Dashboard = ({ navigation }: { navigation: any }) => {
     {
       title: "Attendance",
       items: [
-        { label: "My Attendance", icon: icons.attandance, isDisabled: false },
-        { label: "Team Attendance", icon: icons.attandance, isDisabled: false },
-        { label: "Change Requests", icon: icons.attandance, isDisabled: false },
+        { label: "My Attendance", icon: icons.attendance, isDisabled: false },
+        { label: "Team Attendance", icon: icons.attendance, isDisabled: false },
+        { label: "Change Requests", icon: icons.attendance, isDisabled: false },
       ],
     },
   ];

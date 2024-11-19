@@ -1,13 +1,48 @@
 import { View, StyleSheet } from 'react-native';
 
+// Define props interface for the Divider component
 interface DividerProps {
-  orientation?: 'horizontal' | 'vertical';
-  thickness?: number;
-  color?: string;
-  dashed?: boolean;
-  dashLength?: number;
-  dashGap?: number;
+  orientation?: 'horizontal' | 'vertical';  // Direction of the divider
+  thickness?: number;                       // Thickness of the divider line
+  color?: string;                          // Color of the divider
+  dashed?: boolean;                        // Whether to show dashed line
+  dashLength?: number;                     // Length of each dash
+  dashGap?: number;                        // Gap between dashes
 }
+
+// Create styles outside component to prevent recreation on each render
+const createDividerStyles = (props: {
+  orientation: 'horizontal' | 'vertical',
+  thickness: number,
+  color: string
+}) => StyleSheet.create({
+  divider: {
+    width: props.orientation === 'horizontal' ? '100%' : props.thickness,
+    height: props.orientation === 'vertical' ? '100%' : props.thickness,
+    backgroundColor: props.color,
+  },
+});
+
+const createDashedStyles = (props: {
+  orientation: 'horizontal' | 'vertical',
+  thickness: number,
+  dashLength: number,
+  dashGap: number
+}) => StyleSheet.create({
+  container: {
+    flexDirection: props.orientation === 'horizontal' ? 'row' : 'column',
+    width: props.orientation === 'horizontal' ? '100%' : props.thickness,
+    height: props.orientation === 'vertical' ? '100%' : props.thickness,
+    alignItems: 'center',
+  },
+  dash: {
+    width: props.orientation === 'horizontal' ? props.dashLength : props.thickness,
+    height: props.orientation === 'vertical' ? props.dashLength : props.thickness,
+    backgroundColor: "#DDDDDD",
+    marginRight: props.orientation === 'horizontal' ? props.dashGap : 0,
+    marginBottom: props.orientation === 'vertical' ? props.dashGap : 0,
+  },
+});
 
 const Divider = ({
   orientation = 'horizontal',
@@ -17,33 +52,14 @@ const Divider = ({
   dashLength = 5,
   dashGap = 3,
 }: DividerProps) => {
+  // Render solid divider
   if (!dashed) {
-    const styles = StyleSheet.create({
-      divider: {
-        width: orientation === 'horizontal' ? '100%' : thickness,
-        height: orientation === 'vertical' ? '100%' : thickness,
-        backgroundColor: color,
-      },
-    });
+    const styles = createDividerStyles({ orientation, thickness, color });
     return <View style={styles.divider} />;
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: orientation === 'horizontal' ? 'row' : 'column',
-      width: orientation === 'horizontal' ? '100%' : thickness,
-      height: orientation === 'vertical' ? '100%' : thickness,
-      alignItems: 'center',
-    },
-    dash: {
-      width: orientation === 'horizontal' ? dashLength : thickness,
-      height: orientation === 'vertical' ? dashLength : thickness,
-      backgroundColor: "#DDDDDD",
-      marginRight: orientation === 'horizontal' ? dashGap : 0,
-      marginBottom: orientation === 'vertical' ? dashGap : 0,
-    },
-  });
-
+  // Render dashed divider
+  const styles = createDashedStyles({ orientation, thickness, dashLength, dashGap });
   return (
     <View style={styles.container}>
       {[...Array(30)].map((_, index) => (
