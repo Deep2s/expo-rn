@@ -1,6 +1,29 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true, // Enable all strict type-checking options
+    "baseUrl": "./", // Set the base URL for module resolution
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+    "jsx": "react-native", // Specify JSX mode for React Native
+    "esModuleInterop": true, // Enables compatibility with CommonJS modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "resolveJsonModule": true, // Allow importing .json files
+    "noImplicitAny": false, // Prevent the need to define types explicitly everywhere
+    "moduleResolution": "node", // Resolve modules like Node.js
+    "allowSyntheticDefaultImports": true, // Allow default imports for CommonJS
+    "target": "ES2017", // Target modern JavaScript
+    "module": "ESNext", // Use ESNext modules
+    "lib": ["ESNext", "DOM"], // Include modern JavaScript and DOM APIs
+    "types": ["expo", "jest"], // Include types for Expo and Jest
+    "typeRoots": ["./node_modules/@types", "./typings"], // Type definition roots
+    "strictNullChecks": true, // Enable strict null checks
+    "forceConsistentCasingInFileNames": true // Enforce consistent casing in imports
+  },
+  "include": ["src/**/*"], // Include all files in the src folder
+  "exclude": ["node_modules", "dist", "build"] // Exclude these folders from compilation
 }
